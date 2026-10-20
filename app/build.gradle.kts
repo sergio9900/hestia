@@ -14,9 +14,7 @@ android {
     namespace = "com.auseklis.hestia"
     compileSdk {
         version =
-            release(36) {
-                minorApiLevel = 1
-            }
+            release(37)
     }
 
     defaultConfig {
