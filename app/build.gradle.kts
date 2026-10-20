@@ -17,12 +17,31 @@ android {
             release(37)
     }
 
+    signingConfigs {
+        create("release") {
+            val path = System.getenv("KEYSTORE_PATH")
+            if (path != null) {
+                storeFile = file(path)
+                storePassword = System.getenv("KEYSTORE_PASSWORD")
+                keyAlias = System.getenv("KEY_ALIAS")
+                keyPassword = System.getenv("KEY_PASSWORD")
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            signingConfig = signingConfigs.getByName("release")
+            // ...resto de tu configuración
+        }
+    }
+
     defaultConfig {
         applicationId = "com.auseklis.hestia"
         minSdk = 24
         targetSdk = 36
-        versionCode = 100
-        versionName = "0.1.0"
+        versionCode = 101
+        versionName = "0.1.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
