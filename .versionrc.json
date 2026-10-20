@@ -1,0 +1,7 @@
+{
+  "packageFiles": [{ "filename": "package.json", "type": "json" }],
+  "bumpFiles": [
+    { "filename": "package.json", "type": "json" },
+    { "filename": "app/build.gradle.kts", "updater": "scripts/gradle-version-updater.js" }
+  ]
+}

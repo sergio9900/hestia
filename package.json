@@ -1,11 +1,12 @@
 {
   "name": "project_hestia",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "**Hestia** *(nombre provisional)* es una app de gastos compartidos al estilo Tricount, pensada para llevar las cuentas entre mis padres y ver al instante quién debe a quién.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prepare": "husky"
+    "prepare": "husky",
+    "release": "standard-version"
   },
   "keywords": [],
   "author": "",
@@ -14,6 +15,7 @@
   "devDependencies": {
     "@commitlint/cli": "^21.2.4",
     "@commitlint/config-conventional": "^21.2.4",
-    "husky": "^9.1.7"
+    "husky": "^9.1.7",
+    "standard-version": "^9.5.0"
   }
 }
