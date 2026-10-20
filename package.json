@@ -1,6 +1,6 @@
 {
   "name": "project_hestia",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "**Hestia** *(nombre provisional)* es una app de gastos compartidos al estilo Tricount, pensada para llevar las cuentas entre mis padres y ver al instante quién debe a quién.",
   "main": "index.js",
   "scripts": {
