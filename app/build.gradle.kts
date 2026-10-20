@@ -29,13 +29,6 @@ android {
         }
     }
 
-    buildTypes {
-        release {
-            signingConfig = signingConfigs.getByName("release")
-            // ...resto de tu configuración
-        }
-    }
-
     defaultConfig {
         applicationId = "com.auseklis.hestia"
         minSdk = 24
@@ -48,6 +41,7 @@ android {
 
     buildTypes {
         release {
+            signingConfig = signingConfigs.getByName("release")
             optimization {
                 enable = false
             }
