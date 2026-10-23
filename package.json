@@ -16,6 +16,7 @@
     "@commitlint/cli": "^21.2.4",
     "@commitlint/config-conventional": "^21.2.4",
     "husky": "^9.1.7",
-    "standard-version": "^9.5.0"
+    "standard-version": "^9.5.0",
+    "supabase": "^2.122.0"
   }
 }
