@@ -1,0 +1,9 @@
+dsn: postgres://postgres:postgres@localhost:5432/hestia_ci?sslmode=disable&search_path=public
+docPath: docs/database
+name: Hestia
+desc: Esquema de la base de datos de Hestia. Se genera solo a partir de las migraciones; no se edita a mano.
+er:
+  format: mermaid
+format:
+  adjust: true
+  sort: true
