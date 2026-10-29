@@ -26,3 +26,10 @@ $$;
 
 -- La migración de tiempo real publica tablas en esta publicación
 create publication supabase_realtime;
+
+-- Simula pg_cron: las migraciones programan tareas con cron.schedule, y aquí no se ejecuta nada
+create schema if not exists cron;
+create or replace function cron.schedule(job_name text, schedule text, command text)
+returns bigint
+language sql
+as $$ select 1::bigint $$;
