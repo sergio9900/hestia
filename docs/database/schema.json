@@ -1710,6 +1710,12 @@
       "type": "FUNCTION"
     },
     {
+      "name": "cron.schedule",
+      "return_type": "int8",
+      "arguments": "job_name text, schedule text, command text",
+      "type": "FUNCTION"
+    },
+    {
       "name": "public.create_expense",
       "return_type": "uuid",
       "arguments": "p_id uuid, p_group_id uuid, p_paid_id uuid, p_amount_cents bigint, p_description text, p_splits jsonb, p_category_id uuid DEFAULT NULL::uuid, p_expense_date date DEFAULT CURRENT_DATE",
