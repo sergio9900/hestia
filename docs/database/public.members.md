@@ -119,6 +119,7 @@ erDiagram
   uuid group_id FK
   uuid id
   boolean is_active
+  date next_run_on
   uuid paid_id FK
   timestamp_with_time_zone updated_at
 }

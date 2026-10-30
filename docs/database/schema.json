@@ -480,6 +480,15 @@
           "columns": [
             "id"
           ]
+        },
+        {
+          "name": "expenses_recurring_date_key",
+          "def": "CREATE UNIQUE INDEX expenses_recurring_date_key ON public.expenses USING btree (recurring_expense_id, expense_date) WHERE (recurring_expense_id IS NOT NULL)",
+          "table": "public.expenses",
+          "columns": [
+            "recurring_expense_id",
+            "expense_date"
+          ]
         }
       ],
       "constraints": [
@@ -1082,6 +1091,12 @@
           "nullable": false,
           "default": "true",
           "comment": "Permite pausar o terminar la plantilla sin borrarla."
+        },
+        {
+          "name": "next_run_on",
+          "type": "date",
+          "nullable": false,
+          "comment": "Próxima fecha en la que toca generar un gasto real. La actualiza solo la función generate_recurring_expenses."
         },
         {
           "name": "paid_id",
@@ -1734,6 +1749,18 @@
       "type": "FUNCTION"
     },
     {
+      "name": "public.create_recurring_expense",
+      "return_type": "uuid",
+      "arguments": "p_id uuid, p_group_id uuid, p_paid_id uuid, p_amount_cents bigint, p_description text, p_day_of_month smallint, p_splits jsonb, p_category_id uuid DEFAULT NULL::uuid",
+      "type": "FUNCTION"
+    },
+    {
+      "name": "public.generate_recurring_expenses",
+      "return_type": "int4",
+      "arguments": "",
+      "type": "FUNCTION"
+    },
+    {
       "name": "public.is_group_member",
       "return_type": "bool",
       "arguments": "p_group_id uuid",
@@ -1743,6 +1770,18 @@
       "name": "public.join_group",
       "return_type": "uuid",
       "arguments": "p_code text, p_display_name text",
+      "type": "FUNCTION"
+    },
+    {
+      "name": "public.next_occurrence",
+      "return_type": "date",
+      "arguments": "p_day smallint, p_from date",
+      "type": "FUNCTION"
+    },
+    {
+      "name": "public.set_recurring_expense_active",
+      "return_type": "void",
+      "arguments": "p_id uuid, p_active boolean",
       "type": "FUNCTION"
     },
     {

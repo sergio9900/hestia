@@ -35,11 +35,12 @@ Hecho central: alguien pagó una cantidad por algo. El saldo no se guarda, se ca
 
 ## Indexes
 
-| Name                       | Definition                                                                                    |
-| -------------------------- | --------------------------------------------------------------------------------------------- |
-| expenses_group_updated_idx | CREATE INDEX expenses_group_updated_idx ON public.expenses USING btree (group_id, updated_at) |
-| expenses_id_group_id_key   | CREATE UNIQUE INDEX expenses_id_group_id_key ON public.expenses USING btree (id, group_id)    |
-| expenses_pkey              | CREATE UNIQUE INDEX expenses_pkey ON public.expenses USING btree (id)                         |
+| Name                        | Definition                                                                                                                                                   |
+| --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| expenses_group_updated_idx  | CREATE INDEX expenses_group_updated_idx ON public.expenses USING btree (group_id, updated_at)                                                                |
+| expenses_id_group_id_key    | CREATE UNIQUE INDEX expenses_id_group_id_key ON public.expenses USING btree (id, group_id)                                                                   |
+| expenses_pkey               | CREATE UNIQUE INDEX expenses_pkey ON public.expenses USING btree (id)                                                                                        |
+| expenses_recurring_date_key | CREATE UNIQUE INDEX expenses_recurring_date_key ON public.expenses USING btree (recurring_expense_id, expense_date) WHERE (recurring_expense_id IS NOT NULL) |
 
 ## Triggers
 
@@ -102,6 +103,7 @@ erDiagram
   uuid group_id FK
   uuid id
   boolean is_active
+  date next_run_on
   uuid paid_id FK
   timestamp_with_time_zone updated_at
 }

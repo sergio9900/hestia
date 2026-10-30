@@ -16,21 +16,25 @@ Esquema de la base de datos de Hestia. Se genera solo a partir de las migracione
 | [public.group_invites](public.group_invites.md)                       | 8       | Códigos de invitación para entrar en un grupo. Caducan y son de un solo uso. Solo se tocan mediante funciones. | BASE TABLE |
 | [public.members](public.members.md)                                   | 6       | Una persona dentro de un grupo. Se enlaza con la cuenta de login de Supabase.                                  | BASE TABLE |
 | [public.recurring_expense_splits](public.recurring_expense_splits.md) | 6       | Reparto de una plantilla recurrente. Igual que expense_splits.                                                 | BASE TABLE |
-| [public.recurring_expenses](public.recurring_expenses.md)             | 10      | Plantilla de un gasto que se repite cada mes. No es un gasto: genera uno real cada mes.                        | BASE TABLE |
+| [public.recurring_expenses](public.recurring_expenses.md)             | 11      | Plantilla de un gasto que se repite cada mes. No es un gasto: genera uno real cada mes.                        | BASE TABLE |
 | [public.settlements](public.settlements.md)                           | 9       | Pagos entre dos miembros para saldar deuda. No son gastos: no hay compra ni categoría.                         | BASE TABLE |
 
 ## Stored procedures and functions
 
-| Name                   | ReturnType | Arguments                                                                                                                                                                              | Type     |
-| ---------------------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
-| auth.uid               | uuid       |                                                                                                                                                                                        | FUNCTION |
-| cron.schedule          | int8       | job_name text, schedule text, command text                                                                                                                                             | FUNCTION |
-| public.create_expense  | uuid       | p_id uuid, p_group_id uuid, p_paid_id uuid, p_amount_cents bigint, p_description text, p_splits jsonb, p_category_id uuid DEFAULT NULL::uuid, p_expense_date date DEFAULT CURRENT_DATE | FUNCTION |
-| public.create_group    | uuid       | p_name text, p_display_name text                                                                                                                                                       | FUNCTION |
-| public.create_invite   | text       | p_group_id uuid                                                                                                                                                                        | FUNCTION |
-| public.is_group_member | bool       | p_group_id uuid                                                                                                                                                                        | FUNCTION |
-| public.join_group      | uuid       | p_code text, p_display_name text                                                                                                                                                       | FUNCTION |
-| public.set_updated_at  | trigger    |                                                                                                                                                                                        | FUNCTION |
+| Name                                | ReturnType | Arguments                                                                                                                                                                              | Type     |
+| ----------------------------------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| auth.uid                            | uuid       |                                                                                                                                                                                        | FUNCTION |
+| cron.schedule                       | int8       | job_name text, schedule text, command text                                                                                                                                             | FUNCTION |
+| public.create_expense               | uuid       | p_id uuid, p_group_id uuid, p_paid_id uuid, p_amount_cents bigint, p_description text, p_splits jsonb, p_category_id uuid DEFAULT NULL::uuid, p_expense_date date DEFAULT CURRENT_DATE | FUNCTION |
+| public.create_group                 | uuid       | p_name text, p_display_name text                                                                                                                                                       | FUNCTION |
+| public.create_invite                | text       | p_group_id uuid                                                                                                                                                                        | FUNCTION |
+| public.create_recurring_expense     | uuid       | p_id uuid, p_group_id uuid, p_paid_id uuid, p_amount_cents bigint, p_description text, p_day_of_month smallint, p_splits jsonb, p_category_id uuid DEFAULT NULL::uuid                  | FUNCTION |
+| public.generate_recurring_expenses  | int4       |                                                                                                                                                                                        | FUNCTION |
+| public.is_group_member              | bool       | p_group_id uuid                                                                                                                                                                        | FUNCTION |
+| public.join_group                   | uuid       | p_code text, p_display_name text                                                                                                                                                       | FUNCTION |
+| public.next_occurrence              | date       | p_day smallint, p_from date                                                                                                                                                            | FUNCTION |
+| public.set_recurring_expense_active | void       | p_id uuid, p_active boolean                                                                                                                                                            | FUNCTION |
+| public.set_updated_at               | trigger    |                                                                                                                                                                                        | FUNCTION |
 
 ## Relations
 
@@ -133,6 +137,7 @@ erDiagram
   uuid group_id FK
   uuid id
   boolean is_active
+  date next_run_on
   uuid paid_id FK
   timestamp_with_time_zone updated_at
 }
